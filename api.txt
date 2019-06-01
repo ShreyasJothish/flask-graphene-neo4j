@@ -1,0 +1,368 @@
+Create Tweet:
+mutation createTweet {
+    create_tweet(tweet_data: {text: "Try with your whole heart.",
+    timestamp: "2019-05-30T18:16:31+05:30"}){
+        tweet{
+              text,
+              timestamp
+        },
+        key,
+        ok
+    }
+}
+
+Response:
+{
+  "data": {
+    "create_tweet": {
+      "tweet": {
+        "text": "Try with your whole heart.",
+        "timestamp": "2019-05-30T18:16:31+05:30"
+      },
+      "key": 84,
+      "ok": true
+    }
+  }
+}
+
+Query Tweet:
+{
+    tweet (key: 84){
+        key,
+        text,
+        timestamp
+    }
+}
+
+Response:
+{
+  "data": {
+    "tweet": {
+      "key": 84,
+      "text": "Try with your whole heart.",
+      "timestamp": "2019-05-30T18:16:31+05:30"
+    }
+  }
+}
+
+Create Person:
+mutation createPerson {
+    create_person(person_data: {key: "111", name: "Alice",
+	                            bio: "Alice's bio", email: "alice@dummy.com",
+								phone:"+1-1111-1111"}){
+        person{
+               key,
+               name,
+               bio,
+               email,
+               phone
+        },
+        ok
+    }
+}
+
+Response:
+{
+  "data": {
+    "create_person": {
+      "person": {
+        "key": "111",
+        "name": "Alice",
+        "bio": "Alice's bio",
+        "email": "alice@dummy.com",
+        "phone": "+1-1111-1111"
+      },
+      "ok": true
+    }
+  }
+}
+
+Query Person:
+{
+    person (key: "111"){
+        key,
+        name,
+        bio,
+        email,
+        phone
+    }
+}
+
+Response:
+{
+  "data": {
+    "person": {
+      "key": "111",
+      "name": "Alice",
+      "bio": "Alice's bio",
+      "email": "alice@dummy.com",
+      "phone": "+1-1111-1111"
+    }
+  }
+}
+
+Link Following:
+mutation linkFollowing {
+    link_following(
+        following_data: {
+                         person_key: "222",
+                         follower_key: "444"})
+        {
+         person{
+                key,
+         },
+         follower{
+                  key,
+         },
+         ok
+    }
+}
+
+Response:
+{
+  "data": {
+    "link_following": {
+      "person": {
+        "key": "222"
+      },
+      "follower": {
+        "key": "444"
+      },
+      "ok": true
+    }
+  }
+}
+
+Delink Following:
+mutation delinkFollowing {
+    delink_following(
+        following_data: {
+                         person_key: "222",
+                         follower_key: "444"})
+        {
+         person{
+                key,
+         },
+         follower{
+                  key,
+         },
+         ok
+    }
+}
+
+Response:
+{
+  "data": {
+    "delink_following": {
+      "person": {
+        "key": "222"
+      },
+      "follower": {
+        "key": "444"
+      },
+      "ok": true
+    }
+  }
+}
+
+Link Tweet to Person:
+mutation linkPersonTweet {
+    link_person_tweet(
+        person_tweet_data: {
+                              person_key: "111",
+                              tweet_key: 84})
+        {
+         person{
+                key,
+         },
+         tweet{
+               text,
+         },
+         ok
+    }
+}
+
+Response:
+{
+  "data": {
+    "link_person_tweet": {
+      "person": {
+        "key": "111"
+      },
+      "tweet": {
+        "text": "Try with your whole heart."
+      },
+      "ok": true
+    }
+  }
+}
+
+Delink Tweet from Person:
+mutation delinkPersonTweet {
+    delink_person_tweet(
+        person_tweet_data: {
+                              person_key: "111",
+                              tweet_key: 84})
+        {
+         person{
+                key,
+         },
+         tweet{
+               text,
+         },
+         ok
+    }
+}
+
+Response:
+{
+  "data": {
+    "delink_person_tweet": {
+      "person": {
+        "key": "111"
+      },
+      "tweet": {
+        "text": "Try with your whole heart."
+      },
+      "ok": true
+    }
+  }
+}
+
+Delete Tweet:
+mutation deleteTweet {
+    delete_tweet(tweet_data: {key: 0}) {
+        tweet {
+               text,
+               timestamp
+        },
+        ok
+    }
+
+}
+
+Response:
+{
+  "data": {
+    "delete_tweet": {
+      "tweet": {
+        "text": "Dummy tweet for deletion...",
+        "timestamp": "2019-05-30T18:16:31+05:30"
+      },
+      "ok": true
+    }
+  }
+}
+
+
+Delete Person:
+mutation deletePerson {
+    delete_person(person_data: {key: "999"}) {
+        person{
+               key,
+               name,
+               bio,
+               email,
+               phone
+        },
+        ok
+    }
+
+}
+
+Response:
+{
+  "data": {
+    "delete_person": {
+      "person": {
+        "key": "999",
+        "name": "Dummy",
+        "bio": "Dummy's bio",
+        "email": "dummy@dummy.com",
+        "phone": "+1-9999-9999"
+      },
+      "ok": true
+    }
+  }
+}
+
+Get all Following:
+{
+    followings (key: "333"){
+        key,
+        name
+    }
+}
+
+Response:
+{
+  "data": {
+    "followings": [
+      {
+        "key": "222",
+        "name": "Bob"
+      },
+      {
+        "key": "111",
+        "name": "Alice"
+      }
+    ]
+  }
+}
+
+
+Get all Followers:
+{
+    followers (key: "111"){
+        key,
+        name
+    }
+}
+
+Response:
+{
+  "data": {
+    "followers": [
+      {
+        "key": "555",
+        "name": "Erin"
+      },
+      {
+        "key": "333",
+        "name": "Carol"
+      }
+    ]
+  }
+}
+
+Get all Tweets:
+{
+    person_posted_tweets (key: "111"){
+        key,
+        text,
+        timestamp
+    }
+}
+
+Response:
+{
+  "data": {
+    "person_posted_tweets": [
+      {
+        "key": 84,
+        "text": "Try with your whole heart.",
+        "timestamp": "2019-05-30T18:16:31+05:30"
+      },
+      {
+        "key": 80,
+        "text": "Need to try again.",
+        "timestamp": "2019-05-31T10:14:31+05:30"
+      },
+      {
+        "key": 70,
+        "text": "Again till you succeed.",
+        "timestamp": "2019-05-31T10:15:31+05:30"
+      }
+    ]
+  }
+}

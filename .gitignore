@@ -102,3 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Ignore Pipfile.lock
+Pipfile.lock
