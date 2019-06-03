@@ -28,8 +28,3 @@ Open GrapiQL interface on web browser.
     http://localhost:5000/graphql
     
 Refer to api.txt and play around with commands.
-
-### Description
-
-Refer to blog post.
-    
